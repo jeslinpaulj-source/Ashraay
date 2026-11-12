@@ -1,0 +1,14 @@
+{
+  "name": "ashraay-local-verification",
+  "private": true,
+  "version": "3.0.0",
+  "scripts": {
+    "start:command-center": "node command-center/server.js",
+    "start:mobile": "node mobile-app/server.js",
+    "start:web-app": "cd command-center/web-app && uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    "start:agents": "node agents/run.js"
+  },
+  "optionalDependencies": {
+    "@embedded-postgres/windows-x64": "18.6.0-beta.19"
+  }
+}
