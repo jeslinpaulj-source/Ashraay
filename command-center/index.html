@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASHRAAY Command Center</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/shared/login.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+  <section id="login-screen" class="lg-w">
+   <div class="lg-app">
+    <div class="lg-body">
+      <header class="lg-hero">
+        <div class="lg-topbar">
+          <div class="lg-brand">
+            <span class="lg-mark"><img src="/shared/logo-mark.png" alt=""></span>
+            <div><b>ASHRAAY</b><small data-i18n="Your shelter in every emergency.">Your shelter in every emergency.</small></div>
+          </div>
+          <div class="lg-tools">
+            <label class="lg-langwrap"><span class="sr" data-i18n="Language">Language</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+              <select id="login-language-select" data-lang-select aria-label="Language">
+                <option value="en">English</option><option value="hi" lang="hi">हिन्दी</option><option value="ta" lang="ta">தமிழ்</option><option value="ml" lang="ml">മലയാളം</option><option value="kn" lang="kn">ಕನ್ನಡ</option>
+              </select>
+            </label>
+            <a class="lg-sos" href="tel:112" aria-label="Call emergency number 112">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>112
+            </a>
+          </div>
+        </div>
+        <div class="lg-hero-copy">
+          <h1 data-i18n="Protecting communities during emergencies">Protecting communities during emergencies</h1>
+          <p class="lg-expand" lang="en"><b>A</b>dvanced <b>S</b>afety and <b>H</b>azard <b>R</b>esponse for <b>A</b>id, <b>A</b>ssistance and safet<b>Y</b></p>
+          <ul class="lg-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span data-i18n="Real-time monitoring">Real-time monitoring</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg><span data-i18n="Incident management">Incident management</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-4-5.6"/></svg><span data-i18n="Resource coordination">Resource coordination</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v12H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span data-i18n="Emergency communication">Emergency communication</span></li>
+          </ul>
+        </div>
+        <ul class="lg-tiles" aria-label="Capabilities">
+          <li><i style="background:#D93025"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg></i><span data-i18n="Emergency alerts">Emergency alerts</span></li>
+          <li><i style="background:#1E6FE0"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></i><span data-i18n="Disaster tracking">Disaster tracking</span></li>
+          <li><i style="background:#2E8B3A"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3 2 12h3v9h5v-6h4v6h5v-9h3z"/></svg></i><span data-i18n="Shelter management">Shelter management</span></li>
+          <li><i style="background:#F07C1A"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><circle cx="16.5" cy="8.5" r="3"/><path d="M1.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6zM15 20c0-2-.6-3.6-1.7-4.8a6 6 0 0 1 9.2 4.8z"/></svg></i><span data-i18n="Volunteer coordination">Volunteer coordination</span></li>
+          <li><i style="background:#6A3FD0"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></i><span data-i18n="Resource deployment">Resource deployment</span></li>
+          <li><i style="background:#159C8F"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 2h9l5 5v15H6zm3 9v2h8v-2zm0 4v2h6v-2z"/></svg></i><span data-i18n="Incident reporting">Incident reporting</span></li>
+        </ul>
+      </header>
+
+      <main class="lg-sheet">
+        <img class="lg-logo" src="/shared/logo.png" alt="ASHRAAY">
+        <h2 class="lg-title" data-i18n="Sign in to ASHRAAY">Sign in to ASHRAAY</h2>
+        <p class="lg-subtitle" data-i18n="Together for safer, resilient communities">Together for safer, resilient communities</p>
+
+        <section id="login-signin-view" data-default-role="staff">
+
+
+        <form id="login-form" novalidate>
+          <div class="lg-field">
+            <label class="lg-lbl" for="login-phone" data-i18n="Mobile number">Mobile number</label>
+            <div class="lg-input" id="login-phone-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+              <span class="lg-prefix">+91</span>
+              <input id="login-phone" type="tel" inputmode="numeric" autocomplete="username" maxlength="10" placeholder="98765 43210" aria-describedby="login-phone-msg">
+            </div>
+            <div class="lg-msg" id="login-phone-msg" role="alert"></div>
+          </div>
+
+          <div class="lg-seg lg-method login-method" role="radiogroup" aria-label="Sign-in method">
+            <button type="button" role="radio" data-method="password" aria-checked="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="Password">Password</span></button>
+            <button type="button" role="radio" data-method="mpin" aria-checked="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01"/></svg><span>MPIN</span></button>
+          </div>
+
+          <div class="lg-field" id="login-pwd-field">
+            <label class="sr" for="login-password" data-i18n="Password">Password</label>
+            <div class="lg-input" id="login-pwd-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              <input id="login-password" type="password" autocomplete="current-password" placeholder="Password" aria-describedby="login-pwd-msg">
+              <button type="button" class="lg-eye" id="login-eye" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <div class="lg-msg" id="login-pwd-msg" role="alert"></div>
+          </div>
+
+          <fieldset class="lg-field hidden" id="login-pin-field">
+            <legend class="lg-lbl" data-i18n="Enter 4-digit MPIN">Enter 4-digit MPIN</legend>
+            <div class="lg-pin" id="login-pin-boxes"></div>
+            <div class="lg-msg" id="login-pin-msg" role="alert"></div>
+          </fieldset>
+
+          <div class="lg-row">
+            <label class="lg-check"><input type="checkbox" id="login-remember" checked><span data-i18n="Remember me">Remember me</span></label>
+            <a href="#" id="login-forgot" data-i18n="Forgot password?">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="lg-btn lg-btn-primary" id="login-signin">
+            <span id="login-signin-label" data-i18n="Sign In">Sign In</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p id="login-error" class="lg-error" role="alert"></p>
+        </form>
+
+        <p class="lg-help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          <span data-i18n="Need help?">Need help?</span> <a href="#" id="login-support" data-i18n="Contact support">Contact support</a></p>
+        <p class="lg-help lg-sso"><a href="#" id="login-sso" data-i18n="Staff or field team? Sign in with ASHRAAY SSO">Staff or field team? Sign in with ASHRAAY SSO</a></p>
+
+        </section>
+
+
+
+        <section id="login-register-view" class="hidden" aria-labelledby="register-title">
+
+          <h3 class="lg-view-title" id="register-title" data-i18n="Create your account">Create your account</h3>
+
+          <p class="lg-view-sub" data-i18n="Register with your mobile number and email.">Register with your mobile number and email.</p>
+
+          <div class="lg-seg lg-roles register-roles" role="tablist" aria-label="Register as">
+
+            <button type="button" role="tab" data-role="citizen" aria-selected="true">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><span data-i18n="Citizen">Citizen</span></button>
+
+            <button type="button" role="tab" data-role="volunteer" aria-selected="false">
+
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg><span data-i18n="Volunteer">Volunteer</span></button>
+
+          </div>
+
+          <p class="lg-role-hint" id="register-role-hint" aria-live="polite"></p>
+
+          <form id="register-form" novalidate>
+
+            <div class="lg-field">
+              <label class="lg-lbl" for="register-name" data-i18n="Full name">Full name</label>
+              <div class="lg-input" data-box="register-name">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+                <input id="register-name" type="text" autocomplete="name" maxlength="80">
+              </div>
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="register-phone" data-i18n="Mobile number">Mobile number</label>
+
+              <div class="lg-input" data-box="register-phone">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+
+                <span class="lg-prefix">+91</span>
+
+                <input id="register-phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="98765 43210">
+
+              </div>
+
+              <div class="lg-msg" data-msg="register-phone" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="register-email" data-i18n="Email">Email</label>
+
+              <div class="lg-input" data-box="register-email">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+
+                <input id="register-email" type="email" autocomplete="email" maxlength="254" placeholder="name@example.com">
+
+              </div>
+
+              <div class="lg-msg" data-msg="register-email" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="register-password" data-i18n="Password">Password</label>
+
+              <div class="lg-input" data-box="register-password">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+
+                <input id="register-password" type="password" autocomplete="new-password" maxlength="128" placeholder="At least 8 characters">
+
+                <button type="button" class="lg-eye" data-eye="register-password" aria-label="Show password" aria-pressed="false">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+
+                </button>
+
+              </div>
+
+              <div class="lg-msg" data-msg="register-password" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="register-confirm" data-i18n="Confirm password">Confirm password</label>
+
+              <div class="lg-input" data-box="register-confirm">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+
+                <input id="register-confirm" type="password" autocomplete="new-password" maxlength="128">
+
+              </div>
+
+              <div class="lg-msg" data-msg="register-confirm" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="register-mpin" data-i18n="4-digit MPIN (optional, for quick sign-in)">4-digit MPIN (optional, for quick sign-in)</label>
+
+              <div class="lg-input" data-box="register-mpin">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01"/></svg>
+
+                <input id="register-mpin" class="lg-mpin" type="password" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="••••">
+
+              </div>
+
+              <div class="lg-msg" data-msg="register-mpin" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" data-i18n="Location (optional)">Location (optional)</label>
+
+              <button type="button" class="lg-btn lg-btn-outline" id="register-locate">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-7.1 7-12a7 7 0 0 0-14 0c0 4.9 7 12 7 12z"/></svg>
+
+                <span data-i18n="Use my location">Use my location</span>
+
+              </button>
+
+              <p class="lg-location-status" id="register-location-status" aria-live="polite"></p>
+
+            </div>
+
+            <button type="submit" class="lg-btn lg-btn-primary" id="register-submit"><span data-i18n="Create account">Create account</span></button>
+
+            <p id="register-error" class="lg-error" role="alert"></p>
+
+          </form>
+
+          <p class="lg-switch"><span data-i18n="Already registered?">Already registered?</span> <a href="#" data-login-view="signin" data-i18n="Sign in">Sign in</a></p>
+
+        </section>
+
+
+
+        <section id="login-forgot-view" class="hidden" aria-labelledby="forgot-title">
+
+          <h3 class="lg-view-title" id="forgot-title" data-i18n="Reset your password">Reset your password</h3>
+
+          <p class="lg-view-sub" data-i18n="Enter your registered mobile number or email to get a 6-digit reset code.">Enter your registered mobile number or email to get a 6-digit reset code.</p>
+
+          <form id="forgot-form" novalidate>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="forgot-identifier" data-i18n="Mobile number or email">Mobile number or email</label>
+
+              <div class="lg-input" data-box="forgot-identifier">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+
+                <input id="forgot-identifier" type="text" autocomplete="username" maxlength="254" placeholder="98765 43210 / name@example.com">
+
+              </div>
+
+              <div class="lg-msg" data-msg="forgot-identifier" role="alert"></div>
+
+            </div>
+
+            <button type="submit" class="lg-btn lg-btn-primary" id="forgot-submit"><span data-i18n="Send reset code">Send reset code</span></button>
+
+            <p id="forgot-error" class="lg-error" role="alert"></p>
+
+          </form>
+
+          <form id="reset-form" class="hidden" novalidate>
+
+            <p class="lg-info" id="reset-info" role="status"></p>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="reset-code" data-i18n="6-digit reset code">6-digit reset code</label>
+
+              <div class="lg-input" data-box="reset-code">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg>
+
+                <input id="reset-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456">
+
+              </div>
+
+              <div class="lg-msg" data-msg="reset-code" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="reset-password" data-i18n="New password">New password</label>
+
+              <div class="lg-input" data-box="reset-password">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+
+                <input id="reset-password" type="password" autocomplete="new-password" maxlength="128" placeholder="At least 8 characters">
+
+                <button type="button" class="lg-eye" data-eye="reset-password" aria-label="Show password" aria-pressed="false">
+
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+
+                </button>
+
+              </div>
+
+              <div class="lg-msg" data-msg="reset-password" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="reset-confirm" data-i18n="Confirm password">Confirm password</label>
+
+              <div class="lg-input" data-box="reset-confirm">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+
+                <input id="reset-confirm" type="password" autocomplete="new-password" maxlength="128">
+
+              </div>
+
+              <div class="lg-msg" data-msg="reset-confirm" role="alert"></div>
+
+            </div>
+
+            <div class="lg-field">
+
+              <label class="lg-lbl" for="reset-mpin" data-i18n="New 4-digit MPIN (optional)">New 4-digit MPIN (optional)</label>
+
+              <div class="lg-input" data-box="reset-mpin">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01"/></svg>
+
+                <input id="reset-mpin" class="lg-mpin" type="password" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="••••">
+
+              </div>
+
+              <div class="lg-msg" data-msg="reset-mpin" role="alert"></div>
+
+            </div>
+
+            <button type="submit" class="lg-btn lg-btn-primary" id="reset-submit"><span data-i18n="Reset password">Reset password</span></button>
+
+            <p id="reset-error" class="lg-error" role="alert"></p>
+
+          </form>
+
+          <p class="lg-switch"><a href="#" data-login-view="signin" data-i18n="Back to sign in">Back to sign in</a></p>
+
+        </section>
+
+      </main>
+
+    </div>
+    <footer class="lg-footer">
+      <span class="lg-auth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/></svg><span data-i18n="Disaster Management Authority">Disaster Management Authority</span></span>
+      <span><a href="#" data-i18n="Privacy Policy">Privacy Policy</a> · <a href="#" data-i18n="Terms of Use">Terms of Use</a></span>
+    </footer>
+    <div class="lg-toast" id="login-toast" role="status" aria-live="polite"></div>
+   </div>
+  </section>
+  <div class="shell" id="app-shell" hidden>
+    <div class="toast" id="app-toast" role="status" aria-live="polite"></div>
+    <aside class="side">
+      <div class="brand"><img src="/shared/logo.png" alt=""><div><b>ASHRAAY</b><small data-i18n="Your shelter in every emergency.">Your shelter in every emergency.</small></div></div>
+      <nav class="nav" aria-label="Main">
+        <h6 data-i18n="Operate">Operate</h6>
+        <button data-go="dashboard" class="on" data-i18n="Dashboard">Dashboard</button>
+        <button data-go="people" data-i18n="People &amp; Check-ins">People &amp; Check-ins</button>
+        <button data-go="weather" data-i18n="Weather &amp; Environment">Weather &amp; Environment</button>
+        <button data-go="hazard-agents" data-i18n="Hazard Prediction &amp; Dispatch">Hazard Prediction &amp; Dispatch</button>
+        <button data-go="alerts" data-i18n="Alerts + delivery">Alerts + delivery</button>
+        <button data-go="resources" data-i18n="Resources + shelters">Resources + shelters</button>
+        <h6 data-i18n="Trust">Trust</h6>
+        <button data-go="admin" data-i18n="Admin console">Admin console</button>
+      </nav>
+      <div class="who" data-i18n="Human-approved flood preparedness and response simulator">Human-approved flood preparedness and response simulator</div>
+    </aside>
+    <div class="main">
+    <header class="top">
+      <h1 id="view-title" data-i18n="Dashboard">Dashboard</h1>
+      <span class="crumb" data-i18n="Command Center">Command Center</span><span class="sp"></span>
+      <div class="header-actions">
+      <label class="location-picker" for="db-city" id="db-city-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="Location">Location</span>
+        <select id="db-city" data-i18n-aria-label="Location" aria-label="Location"></select>
+      </label>
+      <label class="language-picker" for="language-select"><span data-i18n="Language">Language</span>
+        <select id="language-select" data-lang-select data-i18n-aria-label="Language" aria-label="Language">
+          <option value="en">English</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option><option value="ml">മലയാളം</option><option value="kn">ಕನ್ನಡ</option>
+        </select>
+      </label>
+      <span id="identity" aria-live="polite" data-i18n="Signing in…">Signing in…</span>
+      <button id="signout" class="secondary" data-i18n="Sign out">Sign out</button>
+    </div>
+  </header>
+  <main class="content">
+    <p id="error" class="error" role="alert"></p>
+    <section data-screen="dashboard" class="db">
+      <div class="db-kpis">
+        <div class="db-kpi red"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v6M12 16h.01"/></svg></span>
+          <div><b id="db-kpi-incidents">0</b><span data-i18n="Active Incidents">Active Incidents</span><small id="db-kpi-incidents-n"></small></div></div>
+        <div class="db-kpi amber"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 4.5a3.5 3.5 0 0 1 0 7M22 20c0-2.8-1.8-4.6-4-5.2"/></svg></span>
+          <div><b id="db-kpi-help">0</b><span data-i18n="People Need Help">People Need Help</span><small id="db-kpi-help-n"></small></div></div>
+        <div class="db-kpi green"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div><b id="db-kpi-safe">0</b><span data-i18n="People Safe">People Safe</span><small id="db-kpi-safe-n"></small></div></div>
+        <div class="db-kpi blue"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.2"/><circle cx="19" cy="10" r="2.2"/><path d="M7 20c0-3 2.2-5 5-5s5 2 5 5"/></svg></span>
+          <div><b id="db-kpi-teams">0</b><span data-i18n="Response Teams Active">Response Teams Active</span><small id="db-kpi-teams-n"></small></div></div>
+        <button type="button" id="db-alert" class="db-alert" data-go="weather"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18h.01"/></svg>
+          <span><b id="db-alert-title">Weather alerts</b><small id="db-alert-text"></small></span></button>
+      </div>
+
+      <div class="db-main">
+        <div class="db-intel-col">
+          <section class="card db-agent-intel hzi" id="db-agent-intel-card" aria-labelledby="db-hi-title">
+            <div class="hzi-head">
+              <span class="hzi-logo hzi-logo-hi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M7.5 6.5c1.6 1.4 2.5 3.4 2.5 5.5s-.9 4.1-2.5 5.5M16.5 6.5c-1.6 1.4-2.5 3.4-2.5 5.5s.9 4.1 2.5 5.5"/></svg></span>
+              <div class="hzi-titles">
+                <h2 id="db-hi-title"><span data-i18n="Hazard Intelligence">Hazard Intelligence</span> <span class="db-live" data-i18n="Live">Live</span></h2>
+              </div>
+              <span class="hzi-badge" id="db-ai-count" aria-live="polite"></span>
+            </div>
+            <div class="hzi-filters" id="db-ai-filters" role="tablist" data-i18n-aria-label="Severity filter" aria-label="Severity filter"></div>
+            <div id="db-ai-body"></div>
+          </section>
+
+          <section class="card db-hazard-response hzi" id="db-hazard-response-card" aria-labelledby="db-hr-title">
+            <div class="hzi-head">
+              <span class="hzi-logo hzi-logo-hr" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18v-6a5 5 0 0 1 10 0v6"/><path d="M5 21h14v-3H5z"/><path d="M12 2v2M4.2 5.2l1.4 1.4M19.8 5.2l-1.4 1.4M2 12h2M20 12h2"/></svg></span>
+              <div class="hzi-titles">
+                <h2 id="db-hr-title"><span data-i18n="Hazard Response">Hazard Response</span> <span class="db-live" data-i18n="Live">Live</span></h2>
+              </div>
+              <span class="hzi-badge" id="db-hr-badge" aria-live="polite"></span>
+            </div>
+            <ul class="hzr-counts" id="db-hr-counts"></ul>
+            <div id="db-hr-body"></div>
+          </section>
+        </div>
+
+        <section class="card db-map-card" id="db-map-card">
+          <h2><span data-i18n="Live Incident Map">Live Incident Map</span> <span class="db-live" data-i18n="Live">Live</span><span class="sp"></span>
+            <span class="db-seg" id="db-map-layers">
+              <button type="button" data-layer="map" aria-pressed="true" data-i18n="Map">Map</button>
+              <button type="button" data-layer="satellite" aria-pressed="false" data-i18n="Satellite">Satellite</button>
+              <button type="button" data-layer="terrain" aria-pressed="false" data-i18n="Terrain">Terrain</button>
+            </span>
+            <button type="button" class="db-icon-btn" id="db-map-full" aria-label="Toggle full screen map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </h2>
+          <div id="db-map" class="db-map"></div>
+          <ul class="db-map-legend">
+            <li><label><input type="checkbox" id="db-show-confirmed" checked><i class="pin-confirmed"></i><span data-i18n="Confirmed incidents">Confirmed incidents</span></label></li>
+            <li><label><input type="checkbox" id="db-show-unconfirmed" checked><i class="pin-unconfirmed"></i><span data-i18n="Awaiting confirmation">Awaiting confirmation</span></label></li>
+            <li><label><input type="checkbox" id="db-show-checkins" checked><i class="pin-checkin"></i><span data-i18n="Check-ins">Check-ins</span></label></li>
+            <li><i class="sev-high"></i><span data-i18n="High severity">High severity</span></li>
+            <li><i class="sev-medium"></i><span data-i18n="Medium severity">Medium severity</span></li>
+            <li><i class="zone"></i><span data-i18n="High Risk Areas">High Risk Areas</span></li>
+          </ul>
+          <p class="muted small" id="db-map-note"></p>
+        </section>
+
+        <div class="db-side">
+          <section class="card db-weather-card">
+            <h2><span data-i18n="Weather &amp; Environmental Data">Weather &amp; Environmental Data</span> <span class="db-live" data-i18n="Live">Live</span></h2>
+            <p class="muted small" id="db-weather-city"></p>
+            <div id="db-weather"></div>
+          </section>
+
+          <section class="card db-queue-card">
+            <h2 data-i18n="Incident Reports &amp; Check-ins">Incident Reports &amp; Check-ins</h2>
+            <div class="db-tabs db-queue-view-tabs" id="db-queue-view-tabs" role="tablist">
+              <button type="button" role="tab" data-view="incidents" aria-selected="true" data-i18n="Incident Reports">Incident Reports</button>
+              <button type="button" role="tab" data-view="checkins" aria-selected="false" data-i18n="User Check-ins">User Check-ins</button>
+            </div>
+            <div id="db-queue-view-incidents">
+              <div class="db-tabs" id="db-queue-tabs" role="tablist">
+                <button type="button" role="tab" data-filter="all" aria-selected="true"><span data-i18n="All">All</span> (<b>0</b>)</button>
+                <button type="button" role="tab" data-filter="unreviewed" aria-selected="false"><span data-i18n="Unreviewed">Unreviewed</span> (<b>0</b>)</button>
+                <button type="button" role="tab" data-filter="progress" aria-selected="false"><span data-i18n="In Progress">In Progress</span> (<b>0</b>)</button>
+                <button type="button" role="tab" data-filter="resolved" aria-selected="false"><span data-i18n="Resolved">Resolved</span> (<b>0</b>)</button>
+              </div>
+              <input id="db-queue-search" class="db-search" type="search" placeholder="Search incidents..." data-i18n-placeholder="Search incidents..." aria-label="Search incidents">
+              <ul id="db-queue" class="db-queue"></ul>
+            </div>
+            <div id="db-queue-view-checkins" hidden>
+              <div class="db-ct-row" id="db-checkin-tiles"></div>
+              <ul class="db-checkin-list" id="db-checkin-list"></ul>
+              <button type="button" class="db-link" data-go="people" data-i18n="View All">View All</button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section class="card db-risk">
+        <h2><span class="db-ai">AI</span><span data-i18n="Risk Outlook &amp; Insights">Risk Outlook &amp; Insights</span> <small class="muted" data-i18n="Forecast-driven insights for proactive response">Forecast-driven insights for proactive response</small></h2>
+        <div class="db-risk-grid">
+          <div><h3 data-i18n="Threat Level Forecast (Next 72 Hours)">Threat Level Forecast (Next 72 Hours)</h3><div id="db-threat"></div></div>
+          <div><h3 data-i18n="Key Insights">Key Insights</h3><div id="db-insights"></div></div>
+          <div><h3 data-i18n="Potential Impact (Next 72 Hours)">Potential Impact (Next 72 Hours)</h3><div id="db-impact"></div></div>
+        </div>
+      </section>
+    </section>
+    <section data-screen="hazard-agents" class="db" hidden>
+      <p class="muted" data-i18n="The agents are live all the time: every 10 seconds they pick up new Event Simulator and Hazard Simulator inputs and citizen reports, raise or update alerts and refresh their recommendations. Use Stop agents to pause them. Approving, dispatching, rejecting and escalating alerts happen on the Dashboard; a dispatched alert goes to every registered user and every active volunteer, wherever they are.">The agents are live all the time: every 10 seconds they pick up new Event Simulator and Hazard Simulator inputs and citizen reports, raise or update alerts and refresh their recommendations. Use Stop agents to pause them. Approving, dispatching, rejecting and escalating alerts happen on the Dashboard; a dispatched alert goes to every registered user and every active volunteer, wherever they are.</p>
+      <p class="muted small"><span data-i18n="Set Agent 1's rainfall, flood-risk and reservoir inputs on the">Set Agent 1's rainfall, flood-risk and reservoir inputs on the</span> <a href="#" data-port="5175" data-path="/" data-i18n="Event Simulator">Event Simulator</a>.</p>
+      <section class="card db-hazard" id="db-hazard-card">
+        <h2><span class="db-ai">AI</span><span data-i18n="Hazard Prediction &amp; Volunteer Dispatch">Hazard Prediction &amp; Volunteer Dispatch</span><span class="sp"></span>
+          <button type="button" class="btn pri" id="db-hazard-scan" data-action="hazard-auto-start" data-i18n="Start Agents 1 &amp; 2">Start Agents 1 &amp; 2</button>
+        </h2>
+        <div id="db-hazard-run-status" aria-live="polite"></div>
+        <div id="db-hazard-sim-note"></div>
+        <div id="db-hazard-list"></div>
+      </section>
+    </section>
+    <section data-screen="people" class="db pc" hidden>
+      <div class="pc-head">
+        <p class="muted" data-i18n="Track the safety status of people, connect with volunteers, and provide secure access to citizen data.">Track the safety status of people, connect with volunteers, and provide secure access to citizen data.</p>
+        <button type="button" class="btn pri" id="pc-export"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-i18n="Export Report">Export Report</span></button>
+      </div>
+      <div class="db-tabs pc-tabs" id="pc-tabs" role="tablist">
+        <button type="button" role="tab" data-tab="live" aria-selected="true" data-i18n="Live Check-ins">Live Check-ins</button>
+        <button type="button" role="tab" data-tab="at_risk" aria-selected="false" data-i18n="At Risk">At Risk</button>
+        <button type="button" role="tab" data-tab="need_help" aria-selected="false" data-i18n="Need Help">Need Help</button>
+        <button type="button" role="tab" data-tab="volunteers" aria-selected="false" data-i18n="Volunteers">Volunteers</button>
+        <button type="button" role="tab" data-tab="access" aria-selected="false" data-i18n="Citizen Access">Citizen Access</button>
+      </div>
+
+      <div class="pc-top">
+        <div class="db-kpi green"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg></span><div><b id="pc-kpi-safe">0</b><span data-i18n="Safe">Safe</span><small id="pc-kpi-safe-n"></small></div></div>
+        <div class="db-kpi amber"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18h.01"/></svg></span><div><b id="pc-kpi-at_risk">0</b><span data-i18n="At Risk">At Risk</span><small id="pc-kpi-at_risk-n"></small></div></div>
+        <div class="db-kpi red"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v6M12 16h.01"/></svg></span><div><b id="pc-kpi-need_help">0</b><span data-i18n="Need Help">Need Help</span><small id="pc-kpi-need_help-n"></small></div></div>
+        <div class="db-kpi blue"><span class="db-kpi-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><div><b id="pc-kpi-total">0</b><span data-i18n="Total Check-ins">Total Check-ins</span><small id="pc-kpi-total-n"></small></div></div>
+        <section class="card pc-trend-card">
+          <h2><span data-i18n="Check-in Trend (Last 24 Hours)">Check-in Trend (Last 24 Hours)</span><span class="sp"></span>
+            <ul class="db-legend"><li><i style="background:#1E9E5A"></i><span data-i18n="Safe">Safe</span></li><li><i style="background:#E08A0B"></i><span data-i18n="At Risk">At Risk</span></li><li><i style="background:#D93025"></i><span data-i18n="Need Help">Need Help</span></li></ul></h2>
+          <div id="pc-trend"></div>
+        </section>
+      </div>
+
+      <div class="pc-main">
+        <section class="card pc-list-card">
+          <h2><span data-i18n="People Check-ins">People Check-ins</span> <span class="pc-count" id="pc-count"></span></h2>
+          <input id="pc-search" class="db-search" type="search" placeholder="Search by name, location..." data-i18n-placeholder="Search by name, location..." aria-label="Search people">
+          <div class="pc-table-wrap">
+            <table class="pc-table">
+              <thead><tr><th data-i18n="Name">Name</th><th data-i18n="Status">Status</th><th data-i18n="Location">Location</th><th data-i18n="Last Check-in">Last Check-in</th><th></th></tr></thead>
+              <tbody id="pc-rows"></tbody>
+            </table>
+          </div>
+          <div class="pc-pager"><small class="muted" id="pc-page-info"></small><span id="pc-pages"></span></div>
+        </section>
+
+        <section class="card pc-map-card">
+          <h2><span data-i18n="People Location Map">People Location Map</span><span class="sp"></span>
+            <select id="pc-map-status" aria-label="Status filter">
+              <option value="all" data-i18n="All Statuses">All Statuses</option>
+              <option value="safe" data-i18n="Safe">Safe</option>
+              <option value="at_risk" data-i18n="At Risk">At Risk</option>
+              <option value="need_help" data-i18n="Need Help">Need Help</option>
+            </select></h2>
+          <div id="pc-map" class="db-map pc-map"></div>
+          <ul class="db-map-legend">
+            <li><label><input type="checkbox" id="pc-show-safe" checked><i style="background:#1E9E5A"></i><span data-i18n="Safe">Safe</span></label></li>
+            <li><label><input type="checkbox" id="pc-show-at_risk" checked><i style="background:#E08A0B"></i><span data-i18n="At Risk">At Risk</span></label></li>
+            <li><label><input type="checkbox" id="pc-show-need_help" checked><i style="background:#D93025"></i><span data-i18n="Need Help">Need Help</span></label></li>
+          </ul>
+          <p class="muted small" id="pc-map-note"></p>
+        </section>
+
+        <section class="card pc-detail-card">
+          <h2><span data-i18n="Person Details">Person Details</span><span class="sp"></span><button type="button" class="db-icon-btn" id="pc-detail-close" aria-label="Close">&times;</button></h2>
+          <p class="db-empty" id="pc-detail-empty" data-i18n="Select a person to see their details.">Select a person to see their details.</p>
+          <div id="pc-detail" hidden>
+            <div class="pc-person">
+              <span class="pc-avatar" id="pc-avatar"></span>
+              <div><b id="pc-name"></b><small id="pc-place"></small><small id="pc-last"></small></div>
+            </div>
+            <div class="db-tabs" id="pc-detail-tabs" role="tablist">
+              <button type="button" role="tab" data-detail="details" data-i18n="Details">Details</button>
+              <button type="button" role="tab" data-detail="location" data-i18n="Location">Location</button>
+              <button type="button" role="tab" data-detail="history" data-i18n="Check-in History">Check-in History</button>
+            </div>
+            <div id="pc-detail-body"></div>
+            <div id="pc-actions" class="pc-actions">
+              <h3 data-i18n="Status Actions">Status Actions</h3>
+              <button type="button" class="pc-act safe" id="pc-mark-safe" data-i18n="Mark as Safe">Mark as Safe</button>
+              <button type="button" class="pc-act risk" id="pc-mark-risk" data-i18n="Mark as At Risk">Mark as At Risk</button>
+              <button type="button" class="pc-act help" id="pc-escalate" data-i18n="Escalate">Escalate</button>
+              <button type="button" class="pc-act help" id="pc-send-response" data-i18n="Send to Response">Send to Response</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="pc-bottom">
+        <section class="card" id="pc-volunteers-card">
+          <h2 data-i18n="Volunteers by Area">Volunteers by Area</h2>
+          <table class="pc-table"><thead><tr><th data-i18n="Area">Area</th><th data-i18n="Total Volunteers">Total Volunteers</th><th data-i18n="Available Now">Available Now</th></tr></thead><tbody id="pc-volunteers"></tbody></table>
+        </section>
+        <section class="card" id="pc-access-card">
+          <h2><span data-i18n="Citizen Data Access">Citizen Data Access</span><span class="sp"></span><span class="db-sev sev-high" data-i18n="Restricted Access">Restricted Access</span></h2>
+          <p class="muted small" id="pc-access-who"></p>
+          <form id="pc-access-form" class="pc-access" autocomplete="off">
+            <label><span data-i18n="Reason for access">Reason for access</span><input name="reason" type="text" required minlength="5" maxlength="300" autocomplete="off" data-lpignore="true"></label>
+            <label><span data-i18n="Citizen access code">Citizen access code</span><input name="password" type="password" inputmode="numeric" required autocomplete="new-password" maxlength="128" data-lpignore="true"></label>
+            <button type="submit" data-i18n="Access Citizen Data">Access Citizen Data</button>
+          </form>
+          <p class="muted small" id="pc-access-status" role="status" aria-live="polite"></p>
+          <p class="note small" data-i18n="This action is logged and monitored for security purposes.">This action is logged and monitored for security purposes.</p>
+        </section>
+        <section class="card">
+          <h2 data-i18n="Recent Check-in Activity">Recent Check-in Activity</h2>
+          <ul class="pc-activity" id="pc-activity"></ul>
+        </section>
+      </div>
+    </section>
+    <section data-screen="weather" class="db wx-screen" hidden>
+      <div class="pc-head">
+        <p class="muted" data-i18n="Real-time weather, environmental data and risk insights for proactive response.">Real-time weather, environmental data and risk insights for proactive response.</p>
+        <label class="wx-city"><span data-i18n="Location">Location</span> <select id="wx-city" aria-label="Location"></select></label>
+      </div>
+      <div class="wx-kpis" id="wx-kpis"></div>
+      <div class="db-tabs pc-tabs" id="wx-tabs" role="tablist">
+        <button type="button" role="tab" data-target="wx-map-card" aria-selected="true" data-i18n="Live Weather Map">Live Weather Map</button>
+        <button type="button" role="tab" data-target="wx-forecast-card" aria-selected="false" data-i18n="Forecast">Forecast</button>
+        <button type="button" role="tab" data-target="wx-cond-card" aria-selected="false" data-i18n="Environmental Data">Environmental Data</button>
+        <button type="button" role="tab" data-target="wx-flood-card" aria-selected="false" data-i18n="Flood Monitoring">Flood Monitoring</button>
+        <button type="button" role="tab" data-target="wx-alerts-card" aria-selected="false" data-i18n="Weather Alerts">Weather Alerts</button>
+      </div>
+
+      <div class="wx-main">
+        <section class="card" id="wx-map-card">
+          <h2><span data-i18n="Live Weather Map">Live Weather Map</span> <span class="db-live" data-i18n="Live">Live</span><span class="sp"></span><small class="muted" id="wx-radar-time"></small></h2>
+          <div class="wx-map-wrap">
+            <div id="wx-map" class="db-map wx-map"></div>
+            <div class="wx-chips" id="wx-chips" role="toolbar" aria-label="Quick layers">
+              <button type="button" data-chip="radar" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4s-5 5.8-5 9.5a5 5 0 0 0 10 0C17 9.8 12 4 12 4z"/></svg><span data-i18n="Rainfall">Rainfall</span></button>
+              <button type="button" data-chip="temperature" aria-pressed="false" data-i18n="Temperature">Temperature</button>
+              <button type="button" data-chip="wind" aria-pressed="false" data-i18n="Wind">Wind</button>
+              <button type="button" data-chip="cloud" aria-pressed="false" data-i18n="Cloud Cover">Cloud Cover</button>
+              <button type="button" data-chip="aqi" aria-pressed="false" data-i18n="Air Quality">Air Quality</button>
+              <button type="button" id="wx-more"><span data-i18n="More">More</span> &#9662;</button>
+            </div>
+            <div class="wx-legend" id="wx-legend" hidden></div>
+            <button type="button" class="wx-full-btn" id="wx-full" aria-label="Toggle full screen map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+            <details class="wx-layers" open>
+              <summary data-i18n="Map Layers">Map Layers</summary>
+              <ul>
+                <li class="wx-layers-h" data-i18n="Weather layer (one at a time)">Weather layer (one at a time)</li>
+                <li><label><input type="radio" name="wx-base" value="radar" checked><i class="wx-rain-swatch"></i><span data-i18n="Rainfall Intensity">Rainfall Intensity</span></label></li>
+                <li><label><input type="radio" name="wx-base" value="temperature"><i style="background:linear-gradient(90deg,#2c7bb6,#ffff8c,#d7191c)"></i><span data-i18n="Temperature">Temperature</span></label></li>
+                <li><label><input type="radio" name="wx-base" value="wind"><i style="background:linear-gradient(90deg,#abd9e9,#4575b4,#d73027)"></i><span data-i18n="Wind Speed">Wind Speed</span></label></li>
+                <li><label><input type="radio" name="wx-base" value="cloud"><i style="background:linear-gradient(90deg,#e6e8ec,#5a6473)"></i><span data-i18n="Cloud Cover">Cloud Cover</span></label></li>
+                <li><label><input type="radio" name="wx-base" value="aqi"><i style="background:linear-gradient(90deg,#00e400,#ffff00,#ff7e00,#ff0000)"></i><span data-i18n="Air Quality">Air Quality</span></label></li>
+                <li><label><input type="radio" name="wx-base" value="none"><i style="background:#fff;border:1px solid var(--line)"></i><span data-i18n="None">None</span></label></li>
+                <li class="wx-layers-h" data-i18n="Map markers">Map markers</li>
+                <li><label><input type="checkbox" data-layer="rivers" checked><i style="background:#1E6FE0"></i><span data-i18n="River Water Levels">River Water Levels</span></label></li>
+                <li><label><input type="checkbox" data-layer="shelters"><i style="background:#2E8B57"></i><span data-i18n="Shelters &amp; Assembly Points">Shelters &amp; Assembly Points</span></label></li>
+                <li><label><input type="checkbox" data-layer="incidents" checked><i class="sev-high"></i><span data-i18n="Incidents">Incidents</span></label></li>
+                <li><label><input type="checkbox" data-layer="checkins" checked><i class="pin-checkin"></i><span data-i18n="Check-ins">Check-ins</span></label></li>
+              </ul>
+            </details>
+          </div>
+          <p class="muted tiny" id="wx-layer-note"></p>
+        </section>
+        <div class="wx-mid">
+          <section class="card" id="wx-cond-card">
+            <h2><span id="wx-cond-title"></span><span class="sp"></span><small class="muted" id="wx-updated"></small></h2>
+            <div class="wx-cells" id="wx-conditions"></div>
+          </section>
+          <section class="card" id="wx-forecast-card">
+            <h2 data-i18n="5-Day Weather Forecast">5-Day Weather Forecast</h2>
+            <ol class="wx-days" id="wx-days"></ol>
+            <h3 data-i18n="Hourly Forecast">Hourly Forecast</h3>
+            <ol class="wx-hours" id="wx-hours"></ol>
+          </section>
+        </div>
+        <section class="card" id="wx-alerts-card">
+          <h2 data-i18n="Live Alerts Feed">Live Alerts Feed</h2>
+          <ul class="wx-alerts" id="wx-alerts"></ul>
+        </section>
+      </div>
+
+      <div class="wx-bottom">
+        <section class="card" id="wx-flood-card">
+          <h2 data-i18n="Flood Intelligence">Flood Intelligence</h2>
+          <table class="pc-table"><thead><tr><th data-i18n="Area">Area</th><th data-i18n="Risk Level">Risk Level</th><th data-i18n="Reason">Reason</th><th data-i18n="Trend">Trend</th></tr></thead><tbody id="wx-flood"></tbody></table>
+        </section>
+        <section class="card">
+          <h2 data-i18n="River &amp; Water Body Monitoring">River &amp; Water Body Monitoring</h2>
+          <table class="pc-table"><thead><tr><th data-i18n="Water Body">Water Body</th><th data-i18n="Discharge">Discharge</th><th data-i18n="vs 7-day peak">vs 7-day peak</th><th data-i18n="Status">Status</th><th data-i18n="Trend">Trend</th></tr></thead><tbody id="wx-rivers"></tbody></table>
+          <p class="muted tiny" data-i18n="Modelled river discharge (GloFAS) at approximate river points; not a gauge reading.">Modelled river discharge (GloFAS) at approximate river points; not a gauge reading.</p>
+        </section>
+        <section class="card">
+          <h2><span class="db-ai">AI</span><span data-i18n="ASHRAAY Predictive Insights">ASHRAAY Predictive Insights</span></h2>
+          <ul class="wx-insights" id="wx-insights"></ul>
+          <p class="muted tiny" data-i18n="Rule-based insights from forecast data; not an official warning.">Rule-based insights from forecast data; not an official warning.</p>
+        </section>
+        <section class="card">
+          <h2 data-i18n="Quick Actions">Quick Actions</h2>
+          <div class="wx-actions">
+            <button type="button" class="qa-red" data-go="alerts" data-i18n="Send Area Alert">Send Area Alert</button>
+            <button type="button" class="qa-blue" data-go="people" data-i18n="Notify Volunteers">Notify Volunteers</button>
+            <button type="button" class="qa-purple" id="wx-report" data-i18n="Generate Situation Report">Generate Situation Report</button>
+          </div>
+        </section>
+      </div>
+      <p class="db-src" id="wx-source"></p>
+    </section>
+    <section data-screen="resources" hidden>
+      <section class="card"><h2 data-i18n="Resources and shelters">Resources and shelters</h2><div id="resources"></div></section>
+      <section class="card space" id="volunteers-view"><h2 data-i18n="Volunteers">Volunteers</h2><div id="volunteers"></div></section>
+    </section>
+    <section data-screen="admin" hidden>
+      <section class="card"><h2 data-i18n="Admin console">Admin console</h2><button data-action="reset" class="danger" data-i18n="Reset demo data">Reset demo data</button>
+        <div class="row wrap space"><a class="btn" data-port="5175" data-i18n="Event Simulator">Event Simulator</a><a class="btn" data-port="5174" data-i18n="Mobile App">Mobile App</a><a class="btn" data-port="8000" data-path="/docs">API</a></div>
+      </section>
+      <section class="card hidden" id="llm-settings-card">
+        <h2 data-i18n="Agent language model">Agent language model</h2>
+        <p class="muted" data-i18n="Agent 1 (hazard scan), Agent 2 (hazard analyse) and Agent 3 (volunteer dispatch) all use the GitHub Copilot SDK for judgement.">Agent 1 (hazard scan), Agent 2 (hazard analyse) and Agent 3 (volunteer dispatch) all use the GitHub Copilot SDK for judgement.</p>
+        <form id="llm-settings-form">
+          <label><span data-i18n="GitHub Copilot token">GitHub Copilot token</span> <input name="githubToken" type="password" autocomplete="off" maxlength="300" placeholder="gho_ / ghu_ / github_pat_..."></label>
+          <p class="muted" data-i18n="Requires a GitHub account with an active Copilot subscription. Classic ghp_ tokens are not supported.">Requires a GitHub account with an active Copilot subscription. Classic ghp_ tokens are not supported.</p>
+          <div class="row wrap">
+            <label class="grow"><span data-i18n="Model">Model</span>
+              <select name="llmModel"><option value="" data-i18n="List models to choose one">List models to choose one</option></select>
+            </label>
+            <button type="button" id="llm-list-models" data-i18n="List models">List models</button>
+          </div>
+          <p class="muted" id="llm-models-status"></p>
+          <p class="muted" id="llm-settings-status"></p>
+          <button type="submit" data-i18n="Save">Save</button>
+        </form>
+      </section>
+    </section>
+    <section data-screen="alerts" hidden>
+    <section class="card"><h2 data-i18n="Simulated alert deliveries">Simulated alert deliveries</h2><div id="deliveries"></div></section>
+    <section class="card"><h2 data-i18n="Draft a manual alert">Draft a manual alert</h2>
+      <form id="alert-form">
+        <label><span data-i18n="Area">Area</span> <input name="place" value="Palarivattom" required minlength="2"></label>
+        <label><span data-i18n="Message">Message</span> <textarea name="message" minlength="10" required>Flood risk advisory. Move to a safe place and follow official updates.</textarea></label>
+        <label><span data-i18n="Language">Language</span> <select name="language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option><option value="ml">മലയാളം</option><option value="kn">ಕನ್ನಡ</option></select></label>
+        <button data-i18n="Submit draft to Decision Gate">Submit draft to Decision Gate</button>
+      </form>
+    </section>
+    </section>
+  </main>
+  </div></div>
+  <script src="/shared/i18n-proto.js"></script>
+  <script src="/shared/i18n.js"></script>
+  <script src="/i18n-command.js"></script>
+  <script src="/api-base.js"></script>
+  <script src="/shared/auth.js"></script>
+  <script src="/shared/login-screen.js"></script>
+  <script src="/cases.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/dashboard.js"></script>
+  <script src="/hazard.js"></script>
+  <script src="/people.js"></script>
+  <script src="/weather.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
