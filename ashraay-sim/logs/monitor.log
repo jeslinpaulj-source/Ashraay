@@ -1,0 +1,50 @@
+[2026-11-11 19:19:07] ASHRAAY Watch started - monitoring http://localhost:8080 (levels: HIGH, EXTREME)
+[2026-11-11 19:19:07] Logs: C:\Users\H457029\Downloads\ashraay-demo-complete_copilot\ashraay-demo-complete\ashraay-sim\logs\monitor.log  and  C:\Users\H457029\Downloads\ashraay-demo-complete_copilot\ashraay-demo-complete\ashraay-sim\logs\alerts.jsonl
+[2026-11-11 19:19:12] ACTIVE_AT_START EXTREME  DAM   Thippagondanahalli (T.G. Halli) (Ramanagara, Karnataka) - 777.00 m, 115% full (FRL 776.00), inflow 0 cumecs
+[2026-11-11 19:19:12] ACTIVE_AT_START EXTREME  RAIN  Anna Nagar (Chennai, Tamil Nadu) - Red - Extremely heavy rain 350 mm Tomorrow
+[2026-11-11 19:19:12] ACTIVE_AT_START EXTREME  RAIN  KR Puram (Bengaluru Urban, Karnataka) - Red - Extremely heavy rain 300 mm Tomorrow
+[2026-11-11 19:19:12] ACTIVE_AT_START EXTREME  RIVER NT Road Crossing (Jia Bharali) (Sonitpur, Assam) - level 79.19 m, forecast 79.29 m (danger 77.00, HFL 78.97)
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     DAM   Kabini (Mysuru, Karnataka) - 695.34 m, 92% full (FRL 696.16), inflow 35 cumecs
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     DAM   Krishna Raja Sagara (KRS) (Mandya, Karnataka) - 751.00 m, 90% full (FRL 752.48), inflow 56 cumecs
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     DAM   Srisailam (Nandyal, Andhra Pradesh) - 268.10 m, 90% full (FRL 269.75), inflow 582 cumecs
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RAIN  Gopalganj (Gopalganj, Bihar) - Orange - Very heavy rain 163.9 mm Sun 15 Nov
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RAIN  Vyttila (Ernakulam, Kerala) - Orange - Very heavy rain 136.1 mm Fri 13 Nov
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RIVER Baltara (Kosi) (Khagaria, Bihar) - level 34.67 m, forecast 35.36 m (danger 33.85, HFL 36.40)
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RIVER Benibad (Bagmati) (Muzaffarpur, Bihar) - level 48.96 m, forecast 49.38 m (danger 48.68, HFL 50.01)
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RIVER Musiri (Cauvery) (Tiruchirappalli, Tamil Nadu) - level 69.67 m, forecast 74.00 m (danger 72.00, HFL 74.20)
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RIVER Neamatighat (Brahmaputra) (Jorhat, Assam) - level 86.10 m, forecast 86.61 m (danger 85.04, HFL 87.37)
+[2026-11-11 19:19:12] ACTIVE_AT_START HIGH     RIVER Patna (Gandhighat) (Ganga) (Patna, Bihar) - level 48.91 m, forecast 49.55 m (danger 48.60, HFL 50.52)
+[2026-11-11 19:19:14] Connected. 14 alert(s) active now. Waiting for changes ... (Ctrl+C to stop)
+[2026-11-11 19:36:23] ASHRAAY Watch started - monitoring http://localhost:8080 (levels: HIGH, EXTREME)
+[2026-11-11 19:36:23] Logs: C:\Users\H457029\Downloads\ashraay-demo-complete_copilot\ashraay-demo-complete\ashraay-sim\logs\monitor.log  and  C:\Users\H457029\Downloads\ashraay-demo-complete_copilot\ashraay-demo-complete\ashraay-sim\logs\alerts.jsonl
+[2026-11-11 19:36:27] ACTIVE_AT_START EXTREME  DAM   Thippagondanahalli (T.G. Halli) (Ramanagara, Karnataka) - 777.00 m, 115% full (FRL 776.00), inflow 0 cumecs
+[2026-11-11 19:36:27] ACTIVE_AT_START EXTREME  RAIN  Anna Nagar (Chennai, Tamil Nadu) - Red - Extremely heavy rain 350 mm Tomorrow
+[2026-11-11 19:36:27] ACTIVE_AT_START EXTREME  RAIN  KR Puram (Bengaluru Urban, Karnataka) - Red - Extremely heavy rain 300 mm Tomorrow
+[2026-11-11 19:36:27] ACTIVE_AT_START EXTREME  RIVER NT Road Crossing (Jia Bharali) (Sonitpur, Assam) - level 79.19 m, forecast 79.29 m (danger 77.00, HFL 78.97)
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     DAM   Kabini (Mysuru, Karnataka) - 695.34 m, 92% full (FRL 696.16), inflow 35 cumecs
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     DAM   Krishna Raja Sagara (KRS) (Mandya, Karnataka) - 751.00 m, 90% full (FRL 752.48), inflow 56 cumecs
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     DAM   Srisailam (Nandyal, Andhra Pradesh) - 268.10 m, 90% full (FRL 269.75), inflow 582 cumecs
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RAIN  Gopalganj (Gopalganj, Bihar) - Orange - Very heavy rain 163.9 mm Sun 15 Nov
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RAIN  Vyttila (Ernakulam, Kerala) - Orange - Very heavy rain 136.1 mm Fri 13 Nov
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RIVER Baltara (Kosi) (Khagaria, Bihar) - level 34.67 m, forecast 35.36 m (danger 33.85, HFL 36.40)
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RIVER Benibad (Bagmati) (Muzaffarpur, Bihar) - level 48.96 m, forecast 49.38 m (danger 48.68, HFL 50.01)
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RIVER Musiri (Cauvery) (Tiruchirappalli, Tamil Nadu) - level 69.67 m, forecast 74.00 m (danger 72.00, HFL 74.20)
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RIVER Neamatighat (Brahmaputra) (Jorhat, Assam) - level 86.10 m, forecast 86.61 m (danger 85.04, HFL 87.37)
+[2026-11-11 19:36:27] ACTIVE_AT_START HIGH     RIVER Patna (Gandhighat) (Ganga) (Patna, Bihar) - level 48.91 m, forecast 49.55 m (danger 48.60, HFL 50.52)
+[2026-11-11 19:36:30] Connected. 14 alert(s) active now. Waiting for changes ... (Ctrl+C to stop)
+[2026-11-11 19:37:40] NEW             EXTREME  DAM   Bhavanisagar (Erode, Tamil Nadu) - 279.00 m, 101% full (FRL 278.89), inflow 29 cumecs
+[2026-11-11 19:37:40] NEW             EXTREME  DAM   Bhavanisagar (Erode, Tamil Nadu) - 279.00 m, 101% full (FRL 278.89), inflow 29 cumecs
+[2026-11-11 20:14:49] ASHRAAY Watch started - monitoring http://localhost:8080 (levels: HIGH, EXTREME)
+[2026-11-11 20:14:49] Logs: C:\Users\H457029\Downloads\ashraay-demo-complete_copilot\ashraay-demo-complete\ashraay-sim\logs\monitor.log  and  C:\Users\H457029\Downloads\ashraay-demo-complete_copilot\ashraay-demo-complete\ashraay-sim\logs\alerts.jsonl
+[2026-11-11 20:14:53] ACTIVE_AT_START EXTREME  RIVER NT Road Crossing (Jia Bharali) (Sonitpur, Assam) - level 79.19 m, forecast 79.29 m (danger 77.00, HFL 78.97)
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     DAM   Kabini (Mysuru, Karnataka) - 695.34 m, 92% full (FRL 696.16), inflow 35 cumecs
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     DAM   Srisailam (Nandyal, Andhra Pradesh) - 268.10 m, 90% full (FRL 269.75), inflow 582 cumecs
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     RAIN  Gopalganj (Gopalganj, Bihar) - Orange - Very heavy rain 163.9 mm Sun 15 Nov
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     RAIN  Vyttila (Ernakulam, Kerala) - Orange - Very heavy rain 136.1 mm Fri 13 Nov
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     RIVER Baltara (Kosi) (Khagaria, Bihar) - level 34.67 m, forecast 35.36 m (danger 33.85, HFL 36.40)
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     RIVER Benibad (Bagmati) (Muzaffarpur, Bihar) - level 48.96 m, forecast 49.38 m (danger 48.68, HFL 50.01)
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     RIVER Neamatighat (Brahmaputra) (Jorhat, Assam) - level 86.10 m, forecast 86.61 m (danger 85.04, HFL 87.37)
+[2026-11-11 20:14:53] ACTIVE_AT_START HIGH     RIVER Patna (Gandhighat) (Ganga) (Patna, Bihar) - level 48.91 m, forecast 49.55 m (danger 48.60, HFL 50.52)
+[2026-11-11 20:14:55] Connected. 9 alert(s) active now. Waiting for changes ... (Ctrl+C to stop)
+[2026-11-11 20:43:38] NEW             EXTREME  DAM   Vaigai (Theni, Tamil Nadu) - 280.00 m, 108% full (FRL 279.20), inflow 6 cumecs
+[2026-11-11 22:14:08] Live feed lost (ConnectionResetError); polling every 10 s until it is back.

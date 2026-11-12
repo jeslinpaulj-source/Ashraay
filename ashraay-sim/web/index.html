@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASHRAAY Hazard Simulator · Weather, Rivers &amp; Dams</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/app.css">
+</head><body>
+<header class="top">
+  <div class="brand">
+    <div class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 19c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0"/><path d="M8 15v1"/><path d="M12 13v2"/></svg></div>
+    <div><h1>ASHRAAY Hazard Simulator</h1><small>Weather · river flood · reservoir forecasts — local simulation</small></div>
+  </div>
+  <nav class="nav" id="nav"></nav>
+  <div class="live" id="live"><i></i><span>Connecting…</span></div>
+  <div class="clock num" id="clock"></div>
+</header>
+<div class="simbar">⚠ <b>Simulation environment.</b>&nbsp;All forecasts, levels and warnings here are generated or simulated. Not an official IMD / CWC / state forecast.</div>
+
+<main class="wrap">
+<!-- ================= DASHBOARD ================= -->
+<section id="v-dashboard" class="view">
+  <div class="kpis" id="d-kpis"></div>
+  <div class="dash">
+    <aside class="card panel">
+      <div><h3>Rain forecast</h3><div class="daychips" id="d-days"></div></div>
+      <div><h3>Layers</h3>
+        <label class="chk"><input type="checkbox" id="d-lRain" checked> <span class="sq" style="background:#4a90d0"></span> Rain / weather points</label>
+        <label class="chk"><input type="checkbox" id="d-lRiver" checked> <span class="dot" style="background:#2e9e5b"></span> River level stations</label>
+        <label class="chk"><input type="checkbox" id="d-lDam" checked> <span class="tri"></span> Dams / reservoirs</label>
+        <label class="chk"><input type="checkbox" id="d-lAlert"> Show only alerts</label>
+      </div>
+      <div><h3>Area</h3>
+        <select class="in" id="d-state" aria-label="State"><option value="">All states</option></select>
+        <input class="in" id="d-q" placeholder="Search ward, river, dam…" style="margin-top:8px" aria-label="Search">
+      </div>
+      <div><h3>Rain (24 h, IMD categories)</h3><div class="legend" id="d-rainleg"></div></div>
+      <div><h3>Rivers &amp; dams</h3><div class="legend">
+        <div><span class="dot" style="background:#d7263d"></span> Extreme · at/above HFL · dam at FRL</div>
+        <div><span class="dot" style="background:#f07c00"></span> Severe · above danger · dam ≥ 90%</div>
+        <div><span class="dot" style="background:#f2b705"></span> Above normal · dam ≥ 80%</div>
+        <div><span class="dot" style="background:#2e9e5b"></span> Normal</div>
+        <div><span class="tri"></span> Dam (fill = storage status)</div>
+      </div></div>
+    </aside>
+    <div class="card mapwrap" id="d-map">
+      <div class="maptop"><span class="mapnote" id="d-mapnote">Rain forecast</span>
+        <div class="seg" id="d-base"><button data-b="vector" class="on">Offline map</button><button data-b="osm">Street map</button></div></div>
+      <div class="mapctl"><button id="d-zin" title="Zoom in" aria-label="Zoom in">+</button><button id="d-zout" title="Zoom out" aria-label="Zoom out">−</button><button id="d-zfit" title="Fit India" aria-label="Fit India">⤢</button></div>
+      <div class="attrib" id="d-attrib">Basemap: Natural Earth (simplified, indicative boundaries)</div>
+    </div>
+    <aside class="card panel" id="d-right">
+      <div class="tabs" id="d-tabs"><button data-t="alerts" class="on">Alerts <span id="d-acount"></span></button><button data-t="warnings">Warnings <span id="d-wcount"></span></button><button data-t="detail">Details</button></div>
+      <div id="d-tab-alerts"><div class="filters" id="d-afilt" style="margin-bottom:10px"></div><div class="list" id="d-alerts"></div></div>
+      <div id="d-tab-warnings" class="list hidden"></div>
+      <div id="d-tab-detail" class="hidden"><div class="empty">Click a ward, river station or dam on the map or in the alerts list.</div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= WEATHER ================= -->
+<section id="v-weather" class="view hidden">
+  <div class="card toolbar">
+    <div><label class="f" for="w-state">State</label><select class="in" id="w-state"></select></div>
+    <div><label class="f" for="w-dist">District</label><select class="in" id="w-dist"></select></div>
+    <div><label class="f" for="w-ward">Ward / area</label><select class="in" id="w-ward"></select></div>
+    <div class="fit"><label class="f">Forecast</label><div class="seg" id="w-span"><button data-n="2" class="on">2 days</button><button data-n="5">5 days</button></div></div>
+    <div class="fit"><a class="btn pri" id="w-sim" href="#/simulator">Simulate rain here</a></div>
+  </div>
+  <div class="wxgrid">
+    <div class="card pad" id="w-wardcard"></div>
+    <div class="card pad" id="w-distcard"></div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="hd pad" style="padding-bottom:10px"><h2 id="w-wards-title">Ward-wise outlook</h2><span class="sub">Rain in mm per day · colour = IMD rain category · click a row to open it</span><div class="sp scale" id="w-scale1"></div></div>
+    <div class="scroll"><table class="heat" id="w-wards"></table></div>
+  </div>
+  <div class="card">
+    <div class="hd pad" style="padding-bottom:10px"><h2 id="w-state-title">District-wise outlook</h2><span class="sub">Highest rain of any ward or point in the district · click a row to open it</span></div>
+    <div class="scroll"><table class="heat" id="w-dists"></table></div>
+  </div>
+</section>
+
+<!-- ================= RIVERS & DAMS ================= -->
+<section id="v-rivers" class="view hidden">
+  <div class="card toolbar">
+    <div class="fit"><label class="f">Show</label><div class="seg" id="r-kind"><button data-k="station" class="on">River stations</button><button data-k="reservoir">Dams / reservoirs</button></div></div>
+    <div><label class="f" for="r-state">State</label><select class="in" id="r-state"><option value="">All states</option></select></div>
+    <div><label class="f" for="r-basin">Basin</label><select class="in" id="r-basin"><option value="">All basins</option></select></div>
+    <div><label class="f" for="r-q">Search</label><input class="in" id="r-q" placeholder="Name, river, district…"></div>
+    <div class="fit"><label class="f">Situation</label><div class="filters" id="r-filt"></div></div>
+  </div>
+  <div class="rvgrid">
+    <div class="card"><div class="hd pad" style="padding-bottom:8px"><h2 id="r-title">River level stations</h2><span class="sub" id="r-sub"></span></div>
+      <div class="scroll" id="r-scroll"><table class="t" id="r-tbl"></table></div></div>
+    <div class="card pad" id="r-detail"><div class="empty">Select a row to see its levels and chart.</div></div>
+  </div>
+</section>
+
+<!-- ================= SIMULATOR ================= -->
+<section id="v-simulator" class="view hidden">
+  <div class="simgrid">
+    <nav class="card simnav" id="s-nav"></nav>
+    <div class="card pad" id="s-body">
+      <!-- RAIN -->
+      <div data-panel="rain" class="form">
+        <div><h2>Rain &amp; weather forecast</h2><div class="sub">Set the forecast for a ward, a whole district or a whole state on one day. Orange / Red results create warnings; every open page and the monitor update immediately.</div></div>
+        <div><label class="f">Apply to</label><div class="seg" id="s-r-scope"><button data-s="ward" class="on">One ward / area</button><button data-s="district">Whole district</button><button data-s="state">Whole state</button></div></div>
+        <div class="r3">
+          <div><label class="f" for="s-r-state">State</label><select class="in" id="s-r-state"></select></div>
+          <div id="s-r-distw"><label class="f" for="s-r-dist">District</label><select class="in" id="s-r-dist"></select></div>
+          <div id="s-r-wardw"><label class="f" for="s-r-ward">Ward / area</label><select class="in" id="s-r-ward"></select></div>
+        </div>
+        <div><label class="f">Day <span class="muted" style="font-weight:500">(current forecast shown · click to choose)</span></label><div class="strip" id="s-r-strip"></div></div>
+        <div><label class="f">Quick scenarios</label><div class="quick" id="s-r-quick"></div></div>
+        <div class="r3">
+          <div><label class="f" for="s-r-rain">Rain amount</label><div style="display:flex;gap:6px"><input class="in num" id="s-r-rain" type="number" min="0" step="0.1" value="150"><select class="in" id="s-r-unit" style="width:84px"><option value="mm">mm</option><option value="cm">cm</option></select></div></div>
+          <div><label class="f" for="s-r-chance">Chance of rain % <span class="muted" style="font-weight:500">(optional)</span></label><input class="in num" id="s-r-chance" type="number" min="0" max="100" placeholder="auto"></div>
+          <div><label class="f" for="s-r-tmax">Max temperature °C <span class="muted" style="font-weight:500">(optional)</span></label><input class="in num" id="s-r-tmax" type="number" step="0.5" placeholder="keep"></div>
+        </div>
+        <div class="r3">
+          <div><label class="f" for="s-r-wind">Wind km/h <span class="muted" style="font-weight:500">(optional)</span></label><input class="in num" id="s-r-wind" type="number" min="0" placeholder="keep"></div>
+          <div><label class="f" for="s-r-gust">Gusts km/h <span class="muted" style="font-weight:500">(optional)</span></label><input class="in num" id="s-r-gust" type="number" min="0" placeholder="auto"></div>
+          <div><label class="f" for="s-r-note">Note <span class="muted" style="font-weight:500">(optional)</span></label><input class="in" id="s-r-note" maxlength="300" placeholder="e.g. Deep depression over Bay of Bengal"></div>
+        </div>
+        <label class="chk"><input type="checkbox" id="s-r-prop" checked> Also raise river forecasts and dam inflow in the same district (simple rain → river link)</label>
+        <div class="preview" id="s-r-prev"></div>
+        <div><button class="btn pri" id="s-r-go">Apply rain forecast</button></div>
+        <div id="s-r-res"></div>
+      </div>
+      <!-- RIVER -->
+      <div data-panel="river" class="form hidden">
+        <div><h2>River level station</h2><div class="sub">Set an observed level and an optional forecast. Crossing warning / danger / HFL creates or upgrades a warning automatically.</div></div>
+        <div class="r3">
+          <div><label class="f" for="s-v-state">State</label><select class="in" id="s-v-state"></select></div>
+          <div><label class="f" for="s-v-basin">Basin</label><select class="in" id="s-v-basin"></select></div>
+          <div><label class="f" for="s-v-st">Station</label><select class="in" id="s-v-st"></select></div>
+        </div>
+        <div id="s-v-info"></div>
+        <div><label class="f">Quick set</label><div class="quick" id="s-v-quick"></div></div>
+        <div class="r3">
+          <div><label class="f" for="s-v-lvl">Observed level (m)</label><input class="in num" id="s-v-lvl" type="number" step="0.01"></div>
+          <div><label class="f" for="s-v-fc">Forecast level (m, optional)</label><input class="in num" id="s-v-fc" type="number" step="0.01"></div>
+          <div><label class="f" for="s-v-hrs">Forecast in (hours)</label><input class="in num" id="s-v-hrs" type="number" value="12" min="1" max="120"></div>
+        </div>
+        <div><label class="f" for="s-v-note">Note (optional)</label><input class="in" id="s-v-note" maxlength="300" placeholder="e.g. Heavy rain in upper catchment"></div>
+        <div class="preview" id="s-v-prev"></div>
+        <div><button class="btn pri" id="s-v-go">Submit level</button></div>
+        <div id="s-v-res"></div>
+      </div>
+      <!-- DAM -->
+      <div data-panel="dam" class="form hidden">
+        <div><h2>Dam / reservoir level</h2><div class="sub">Pick state → district → dam, see the full and current level, then enter a custom level.</div></div>
+        <div class="r3">
+          <div><label class="f" for="s-d-state">State</label><select class="in" id="s-d-state"></select></div>
+          <div><label class="f" for="s-d-dist">District</label><select class="in" id="s-d-dist"></select></div>
+          <div><label class="f" for="s-d-dam">Dam / reservoir</label><select class="in" id="s-d-dam"></select></div>
+        </div>
+        <div id="s-d-info"></div>
+        <div class="gauge" id="s-d-gauge"></div>
+        <div><label class="f">Quick set</label><div class="quick" id="s-d-quick"></div></div>
+        <input type="range" id="s-d-slide" step="0.01" aria-label="Level slider">
+        <div class="r3">
+          <div><label class="f" for="s-d-lvl">Level (m)</label><input class="in num" id="s-d-lvl" type="number" step="0.01"></div>
+          <div><label class="f" for="s-d-in">Inflow (cumecs)</label><input class="in num" id="s-d-in" type="number" min="0"></div>
+          <div><label class="f" for="s-d-out">Outflow (cumecs)</label><input class="in num" id="s-d-out" type="number" min="0"></div>
+        </div>
+        <div><label class="f" for="s-d-note">Note (optional)</label><input class="in" id="s-d-note" maxlength="300" placeholder="e.g. Gates to be opened gradually from 18:00"></div>
+        <div class="preview" id="s-d-prev"></div>
+        <div><button class="btn pri" id="s-d-go">Submit dam level</button></div>
+        <div id="s-d-res"></div>
+      </div>
+      <!-- BASIN -->
+      <div data-panel="basin" class="form hidden">
+        <div><h2>Basin scenario</h2><div class="sub">Raise or lower every river station in a basin (optionally one state) at once.</div></div>
+        <div class="r2">
+          <div><label class="f" for="s-b-basin">Basin</label><select class="in" id="s-b-basin"></select></div>
+          <div><label class="f" for="s-b-state">State (optional)</label><select class="in" id="s-b-state"></select></div>
+        </div>
+        <div><label class="f" for="s-b-delta">Change in level: <b id="s-b-dv">+1.00 m</b></label><input id="s-b-delta" type="range" min="-3" max="5" step="0.25" value="1" style="width:100%"></div>
+        <div class="preview" id="s-b-prev"></div>
+        <div><button class="btn pri" id="s-b-go">Run scenario</button></div>
+        <div id="s-b-res"></div>
+      </div>
+      <!-- WARNING -->
+      <div data-panel="warning" class="form hidden">
+        <div><h2>Custom warning</h2><div class="sub">Publish a warning for an area, a river station or a dam. It stays until you clear it.</div></div>
+        <div class="r2">
+          <div><label class="f" for="s-w-sev">Severity</label><select class="in" id="s-w-sev"><option value="extreme">Extreme / Red</option><option value="severe">Severe / Orange</option><option value="above_normal">Above normal / Yellow</option></select></div>
+          <div><label class="f" for="s-w-target">Linked to</label><select class="in" id="s-w-target"></select></div>
+        </div>
+        <div><label class="f" for="s-w-title">Title</label><input class="in" id="s-w-title" maxlength="120" placeholder="Flood warning – Bellandur, Bengaluru East"></div>
+        <div><label class="f" for="s-w-msg">Message</label><textarea class="in" id="s-w-msg" maxlength="600" placeholder="Heavy rain in the next 48 h; nearby reservoir almost full. Residents of low-lying areas should move to safer places."></textarea></div>
+        <div><button class="btn pri" id="s-w-go">Publish warning</button></div>
+        <div id="s-w-res"></div>
+      </div>
+      <!-- RESET -->
+      <div data-panel="reset" class="form hidden">
+        <div><h2>Reset data</h2><div class="sub">Put every forecast, river level, dam level and warning back to the starting (seed) values. Some seed high/extreme alerts remain. The monitor log is kept unless you clear it.</div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn danger" id="s-x-reset">Reset all data</button><button class="btn" id="s-x-clearmon">Clear monitor log</button></div>
+        <div id="s-x-res"></div>
+      </div>
+    </div>
+    <aside class="grid">
+      <div class="card pad"><div class="hd"><h2>Active warnings</h2><span class="sub" id="s-wn"></span></div>
+        <button type="button" class="btn danger" id="s-reset-alerts" style="margin-top:10px">Reset to seed data</button>
+        <p class="sub" style="margin-top:8px">Restores forecasts, rivers, dams and warnings. Some seed high/extreme alerts remain.</p>
+        <div id="s-reset-alerts-res"></div>
+        <div class="list" id="s-warn" style="margin-top:10px;max-height:420px;overflow:auto"></div></div>
+      <div class="card pad"><div class="hd"><h2>Recent activity</h2></div><div class="audit" id="s-audit" style="margin-top:8px"></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= MONITOR ================= -->
+<section id="v-monitor" class="view hidden">
+  <div class="mongrid">
+    <div class="grid">
+      <div class="card pad" id="m-status"></div>
+      <div class="card pad">
+        <h2>How to run the monitor</h2>
+        <ol class="steps" style="margin-top:10px">
+          <li>Keep this simulator running (<code>start.bat</code>).</li>
+          <li>Double-click <code>monitor.bat</code> in the same folder. A console window opens and lists the current alerts.</li>
+          <li>Change something in the <a href="#/simulator">Simulator</a> — e.g. <b>15 cm rain tomorrow</b> in Bellandur.</li>
+          <li>Within 1–2 s a new line appears in the console window, in <code>logs/monitor.log</code>, in <code>logs/alerts.jsonl</code> and in the table on this page.</li>
+        </ol>
+      </div>
+      <div class="card pad">
+        <h2>What it watches</h2>
+        <div class="legend lt" style="margin-top:10px;font-size:12.5px">
+          <div><span class="lvl EXTREME">EXTREME</span><span>Red rain / wind / heat · river at or above HFL · dam at or above FRL</span></div>
+          <div><span class="lvl HIGH">HIGH</span><span>Orange rain · river above danger level · dam ≥ 90% full</span></div>
+          <div><span class="lvl WATCH">WATCH</span><span>Yellow — only when started with <code class="nw">--include-yellow</code></span></div>
+          <div><span class="lvl CLEARED">CLEARED</span><span>an alert that is no longer active</span></div>
+        </div>
+        <div class="sub" style="margin-top:10px">It reports only changes: NEW, UPGRADED, UPDATED, DOWNGRADED, CLEARED. It is a rule-based watcher; an AI agent would sit on top of its output.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="hd pad" style="padding-bottom:10px"><h2>Monitor log</h2><span class="sub" id="m-count"></span>
+        <div class="sp filters" id="m-filt"></div></div>
+      <div class="scroll" style="max-height:calc(100vh - 230px)"><table class="t" id="m-tbl"></table></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/minimap.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/view-dashboard.js"></script>
+<script src="/assets/js/view-weather.js"></script>
+<script src="/assets/js/view-rivers.js"></script>
+<script src="/assets/js/view-simulator.js"></script>
+<script src="/assets/js/view-monitor.js"></script>
+<script>App.start();</script>
+</body></html>
