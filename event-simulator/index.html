@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASHRAAY Event Simulator</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="es-header">
+    <h1>ASHRAAY Event Simulator</h1>
+    <nav class="es-apps">
+      <a class="btn" data-port="5173" data-path="/">Command Center</a>
+      <a class="btn" data-port="5174" data-path="/">Mobile App</a>
+    </nav>
+  </header>
+
+  <main class="es-main">
+    <section class="card">
+      <h2>Hazard prediction inputs (Agent 1)</h2>
+      <p class="muted">
+        Set rainfall, flood-risk and reservoir/dam fill values for a city here. Once saved, Agent 1 uses
+        these values instead of the live weather feed every time it scans that city in the Command Center,
+        until you clear them.
+      </p>
+      <form id="sim-form">
+        <label>City
+          <select id="sim-city" required></select>
+        </label>
+        <label>24-hour rainfall (mm)
+          <input id="sim-rain" type="number" min="0" max="2000" step="1" value="40" required>
+        </label>
+        <label>Flood risk (%)
+          <input id="sim-flood" type="number" min="0" max="100" step="1" value="30" required>
+        </label>
+        <label>Reservoir / dam fill (%)
+          <input id="sim-reservoir" type="number" min="0" max="100" step="1" value="60" required>
+        </label>
+        <div class="es-actions">
+          <button type="submit" class="btn pri">Save to Agent 1</button>
+        </div>
+        <p id="sim-message" class="es-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Active simulated inputs</h2>
+      <p class="muted">Cities with no row here are still driven by the Command Center's live weather feed.</p>
+      <table class="es-table">
+        <thead>
+          <tr><th>City</th><th>Rain (mm)</th><th>Flood risk (%)</th><th>Reservoir (%)</th><th>Updated</th><th></th></tr>
+        </thead>
+        <tbody id="sim-rows"></tbody>
+      </table>
+      <p id="sim-empty" class="muted small hidden">No simulated inputs are set. Agent 1 is using live weather data for every city.</p>
+    </section>
+  </main>
+
+  <script src="/api-base.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
